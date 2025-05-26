@@ -16,7 +16,7 @@ const DataView: React.FC<DataViewProps> = ({ data, selectedNode }) => {
 
     if (format === 'csv') {
       const headers = data.columns.join(',');
-      const rows = data.data.map(row => 
+      const rows = data.data.map(row =>
         data.columns.map(col => {
           const value = row[col];
           // Escape commas and quotes in CSV
@@ -57,7 +57,7 @@ const DataView: React.FC<DataViewProps> = ({ data, selectedNode }) => {
         )}
         {data && (
           <div style={{ marginLeft: 'auto', display: 'flex', gap: '0.5rem' }}>
-            <button 
+            <button
               onClick={() => exportData('csv')}
               style={{
                 padding: '0.25rem 0.5rem',
@@ -70,7 +70,7 @@ const DataView: React.FC<DataViewProps> = ({ data, selectedNode }) => {
             >
               Export CSV
             </button>
-            <button 
+            <button
               onClick={() => exportData('json')}
               style={{
                 padding: '0.25rem 0.5rem',
@@ -88,21 +88,31 @@ const DataView: React.FC<DataViewProps> = ({ data, selectedNode }) => {
       </div>
       <div className="panel-content">
         {!selectedNode ? (
-          <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center', 
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
             height: '100%',
             color: '#6c757d',
-            fontSize: '0.9rem'
+            fontSize: '0.9rem',
+            textAlign: 'center',
+            padding: '2rem'
           }}>
-            Select a node to view its output data
+            <h3 style={{ marginBottom: '1rem', color: '#495057' }}>Welcome to Canva Datablocks!</h3>
+            <p style={{ marginBottom: '1rem' }}>Select a node to view its output data</p>
+            <div style={{ fontSize: '0.8rem', lineHeight: '1.5' }}>
+              <p><strong>Quick Start:</strong></p>
+              <p>1. Drag an "Example Data" block from the sidebar</p>
+              <p>2. Click on the block to see the data here</p>
+              <p>3. Try uploading a CSV file with the "CSV Input" block</p>
+            </div>
           </div>
         ) : !data ? (
-          <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center', 
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
             height: '100%',
             color: '#6c757d',
             fontSize: '0.9rem'
@@ -111,9 +121,9 @@ const DataView: React.FC<DataViewProps> = ({ data, selectedNode }) => {
           </div>
         ) : (
           <div>
-            <div style={{ 
-              marginBottom: '1rem', 
-              fontSize: '0.875rem', 
+            <div style={{
+              marginBottom: '1rem',
+              fontSize: '0.875rem',
               color: '#495057',
               display: 'flex',
               gap: '1rem'
@@ -122,19 +132,19 @@ const DataView: React.FC<DataViewProps> = ({ data, selectedNode }) => {
               <span><strong>Rows:</strong> {data.data.length}</span>
               <span><strong>Columns:</strong> {data.columns.length}</span>
             </div>
-            
+
             {data.type === 'tabular' && data.data.length > 0 ? (
               <div style={{ overflowX: 'auto' }}>
-                <table style={{ 
-                  width: '100%', 
+                <table style={{
+                  width: '100%',
                   borderCollapse: 'collapse',
                   fontSize: '0.8rem'
                 }}>
                   <thead>
                     <tr style={{ background: '#f8f9fa' }}>
                       {data.columns.map((column) => (
-                        <th key={column} style={{ 
-                          padding: '0.5rem', 
+                        <th key={column} style={{
+                          padding: '0.5rem',
                           border: '1px solid #dee2e6',
                           textAlign: 'left',
                           fontWeight: '600'
@@ -148,8 +158,8 @@ const DataView: React.FC<DataViewProps> = ({ data, selectedNode }) => {
                     {data.data.slice(0, 100).map((row, index) => (
                       <tr key={index}>
                         {data.columns.map((column) => (
-                          <td key={column} style={{ 
-                            padding: '0.5rem', 
+                          <td key={column} style={{
+                            padding: '0.5rem',
                             border: '1px solid #dee2e6'
                           }}>
                             {String(row[column] ?? '')}
@@ -160,9 +170,9 @@ const DataView: React.FC<DataViewProps> = ({ data, selectedNode }) => {
                   </tbody>
                 </table>
                 {data.data.length > 100 && (
-                  <div style={{ 
-                    padding: '0.5rem', 
-                    textAlign: 'center', 
+                  <div style={{
+                    padding: '0.5rem',
+                    textAlign: 'center',
                     color: '#6c757d',
                     fontSize: '0.8rem'
                   }}>
@@ -171,9 +181,9 @@ const DataView: React.FC<DataViewProps> = ({ data, selectedNode }) => {
                 )}
               </div>
             ) : (
-              <pre style={{ 
-                background: '#f8f9fa', 
-                padding: '1rem', 
+              <pre style={{
+                background: '#f8f9fa',
+                padding: '1rem',
                 borderRadius: '4px',
                 fontSize: '0.8rem',
                 overflow: 'auto',
